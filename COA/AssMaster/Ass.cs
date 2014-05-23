@@ -52,11 +52,6 @@ namespace COA
             {
                 return _head.TryGetMember(binder, out result);
             }
-
-            public override bool TrySetMember(SetMemberBinder binder, object value)
-            {
-                return false;
-            }
         }
     }
 }

@@ -2,26 +2,23 @@
 using System.Dynamic;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace COA
 {
     public sealed class Pipe : DynamicObject
     {
         private readonly Dictionary<string, Pipe> _pipes;
-        private Stream _stream;
+        private byte[] _data;
 
         private Pipe()
         {
             _pipes = new Dictionary<string, Pipe>();
-            _stream = null;
+            _data = null;
         }
 
         public void Dispose()
         {
-            if (_stream != null)
-            {
-                _stream.Close();
-            }
             foreach (var pair in _pipes)
             {
                 pair.Value.Dispose();
@@ -38,9 +35,14 @@ namespace COA
             return success;
         }
 
-        public static implicit operator Stream(Pipe pipe)
+        public static implicit operator byte[](Pipe pipe)
         {
-            return pipe._stream;
+            return pipe._data;
+        }
+
+        public static implicit operator string(Pipe pipe)
+        {
+            return Encoding.UTF8.GetString(pipe._data);
         }
 
         public static Pipe FromFolder(string path, params string[] filterExclude)
@@ -59,7 +61,7 @@ namespace COA
 
         public static Pipe FromFile(string path)
         {
-            return new Pipe {_stream = File.OpenRead(path)};
+            return new Pipe {_data = File.ReadAllBytes(path)};
         }
     }
 }
