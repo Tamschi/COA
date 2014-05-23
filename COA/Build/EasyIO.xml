@@ -1,0 +1,776 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EasyIO</name>
+    </assembly>
+    <members>
+        <member name="T:EasyIO.BitField">
+            <summary>
+            Represents a bit field of arbitrary length.
+            </summary>
+        </member>
+        <member name="M:EasyIO.BitField.#ctor(System.Int32)">
+            <summary>
+            Creates a new instance of the EasyIO.BitField class with the specified number of bits.
+            </summary>
+            <param name="bits">The number of bits in the bit field. This value must be a multiple of 8.</param>
+        </member>
+        <member name="M:EasyIO.BitField.FromValue``1(``0)">
+            <summary>
+            Creates a BitField object from the specified data.
+            </summary>
+            <typeparam name="T">The type of data to pass.</typeparam>
+            <param name="value">The data to pass to the BitField.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.BitField.UnsetAll">
+            <summary>
+            Unsets all the flags in the bitfield.
+            </summary>
+        </member>
+        <member name="M:EasyIO.BitField.SetAll">
+            <summary>
+            Sets all the flags in the bitfield.
+            </summary>
+        </member>
+        <member name="M:EasyIO.BitField.GetSetCount">
+            <summary>
+            Returns the number of set bits.
+            </summary>
+            <returns>The number of set bits.</returns>
+        </member>
+        <member name="M:EasyIO.BitField.GetUnsetCount">
+            <summary>
+            Returns the number of unset bits.
+            </summary>
+            <returns>The number of unset bits.</returns>
+        </member>
+        <member name="M:EasyIO.BitField.Invert">
+            <summary>
+            Inverts the flags in the bit field.
+            </summary>
+        </member>
+        <member name="M:EasyIO.BitField.FromBytes(System.Byte[])">
+            <summary>
+            Creates a new BitField from the specified array of bytes.
+            </summary>
+            <param name="data">The array of bytes to create the BitField from.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.BitField.GetBytes">
+            <summary>
+            Returns the BitField as an array of bytes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:EasyIO.BitField.Item(System.Int32)">
+            <summary>
+            Accesses the bit at the specified index in the bit field.
+            </summary>
+            <param name="i">The index of the bit to access.</param>
+            <returns></returns>
+        </member>
+        <member name="P:EasyIO.BitField.Bits">
+            <summary>
+            The number of bits in the BitField.
+            </summary>
+        </member>
+        <member name="P:EasyIO.BitField.Bytes">
+            <summary>
+            The number of bytes in the BitField.
+            </summary>
+        </member>
+        <member name="T:EasyIO.EasyReader">
+            <summary>
+            Provides comprehensive binary data reading functionality including support for reading arrays and enumeration members.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EasyReader.#ctor(System.IO.Stream,System.Int32,EasyIO.Endian)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyReader class from the specified stream.
+            </summary>
+            <param name="stream">The stream from which to read.</param>
+            <param name="startIndex">The index at which to start reading.</param>
+            <param name="defaultEndianness">The endianness of the data to be read.</param>
+        </member>
+        <member name="M:EasyIO.EasyReader.#ctor(System.IO.Stream,System.Boolean,System.Int32,EasyIO.Endian)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyReader class from the specified stream.
+            </summary>
+            <param name="stream">The stream from which to read.</param>
+            <param name="leaveOpen">Specifies whether or not to leave the stream open after the reader is disposed.</param>
+            <param name="startIndex">The index at which to start reading.</param>
+            <param name="defaultEndianness">The endianness of the data to be read.</param>
+        </member>
+        <member name="M:EasyIO.EasyReader.#ctor(System.String,System.IO.FileMode,System.Int32,EasyIO.Endian)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyReader class from the specified file path.
+            </summary>
+            <param name="path">The path to the file to read.</param>
+            <param name="mode">Speficies how the operating system should open the file.</param>
+            <param name="startIndex">The index at which to start reading.</param>
+            <param name="defaultEndianness">The endianness of the data to be read.</param>
+        </member>
+        <member name="M:EasyIO.EasyReader.#ctor(System.Byte[],System.Int32,EasyIO.Endian)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyReader class from a byte array.
+            </summary>
+            <param name="data">The byte array to read from.</param>
+            <param name="startIndex">The index at which to start reading.</param>
+            <param name="defaultEndianness">The endianness of the data to be read.</param>
+        </member>
+        <member name="M:EasyIO.EasyReader.Peek">
+            <summary>
+            Returns the next available byte but does not consume it.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadByte">
+            <summary>
+            Reads a single byte.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadByte(System.Byte@)">
+            <summary>
+            Reads a single byte.
+            </summary>
+            <param name="value">The byte that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBytes(System.Int32)">
+            <summary>
+            Reads an array of bytes.
+            </summary>
+            <param name="count">The number of bytes to read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBytes(System.Int32,System.Byte[]@)">
+            <summary>
+            Reads an array of bytes.
+            </summary>
+            <param name="count">The number of bytes to read.</param>
+            <param name="value">The bytes that were read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadAllBytes">
+            <summary>
+            Reads all bytes from the stream.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadAllBytes(System.Byte[]@)">
+            <summary>
+            Reads all bytes from the stream.
+            </summary>
+            <param name="value">The bytes from the stream.</param>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadSByte">
+            <summary>
+            Reads a signed byte.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadSByte(System.SByte@)">
+            <summary>
+            Reads a signed byte.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadChar">
+            <summary>
+            Reads a Unicode character.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadChar(System.Char@)">
+            <summary>
+            Reads a Unicode character.
+            </summary>
+            <param name="value">The character that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBoolean">
+            <summary>
+            Reads a 1-byte boolean value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBoolean(System.Boolean@)">
+            <summary>
+            Reads a 1-byte boolean value.
+            </summary>
+            <param name="value">The boolean value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt16">
+            <summary>
+            Reads a 16-bit unsigned integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt16(System.UInt16@)">
+            <summary>
+            Reads a 16-bit unsigned integer.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadInt16">
+            <summary>
+            Reads a 16-bit signed integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt32">
+            <summary>
+            Reads a 32-bit unsigned integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt32(System.UInt32@)">
+            <summary>
+            Reads a 32-bit unsigned integer.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadInt32">
+            <summary>
+            Reads a 32-bit signed integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadInt32(System.Int32@)">
+            <summary>
+            Reads a 32-bit signed integer.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt64">
+            <summary>
+            Reads a 64-bit unsigned integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadUInt64(System.UInt64@)">
+            <summary>
+            Reads a 64-bit unsigned integer.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadInt64">
+            <summary>
+            Reads a 64-bit signed integer.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadInt64(System.Int64@)">
+            <summary>
+            Reads a 64-bit signed integer.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadSingle">
+            <summary>
+            Reads a single-precision floating point number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadSingle(System.Single@)">
+            <summary>
+            Reads a single-precision floating point number.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDouble">
+            <summary>
+            Reads a double-precision floating-point number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDouble(System.Double@)">
+            <summary>
+            Reads a double-precision floating-point number.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDecimal">
+            <summary>
+            Reads a 128-bit decimal number.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDecimal(System.Decimal@)">
+            <summary>
+            Reads a 128-bit decimal number.
+            </summary>
+            <param name="value">The value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadString">
+            <summary>
+            Reads a Unicode string.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadString(System.String@)">
+            <summary>
+            Reads a Unicode string.
+            </summary>
+            <param name="value">The string that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadString(System.Text.Encoding)">
+            <summary>
+            Reads a string encoded in the specified encoding.
+            </summary>
+            <param name="encoding">The encoding of the string to be read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadString(System.Text.Encoding,System.String@)">
+            <summary>
+            Reads a string encoded in the specified encoding.
+            </summary>
+            <param name="encoding">The encoding of the string to be read.</param>
+            <param name="value">The string that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStringArray">
+            <summary>
+            Reads an array of Unicode strings.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStringArray(System.String[]@)">
+            <summary>
+            Reads an array of Unicode strings.
+            </summary>
+            <param name="value">The array of strings that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStringArray(System.Text.Encoding)">
+            <summary>
+            Reads a string array encoded in the specified encoding.
+            </summary>
+            <param name="encoding">The encoding of the strings to be read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStringArray(System.Text.Encoding,System.String[]@)">
+            <summary>
+            Reads a string array encoded in the specified encoding.
+            </summary>
+            <param name="encoding">The encoding of the strings to be read.</param>
+            <param name="value">The array of strings that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadArray``1(System.Boolean)">
+            <summary>
+            Reads an array of the specified value type.
+            </summary>
+            <typeparam name="T">The type stored in the array.</typeparam>
+            <param name="use64bit">Indicates to the reader that the array length is 64-bit rather than 32-bit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadArray``1(``0[]@,System.Boolean)">
+            <summary>
+            Reads an array of the specified value type.
+            </summary>
+            <typeparam name="T">The type stored in the array.</typeparam>
+            <param name="value">The array that was read.</param>
+            <param name="use64bit">Indicates to the reader that the array length is 64-bit rather than 32-bit.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadArray``1(System.Int32)">
+            <summary>
+            Reads an array of the specified type and item count.
+            </summary>
+            <typeparam name="T">The type stored in the array.</typeparam>
+            <param name="length">The length of the array.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadArray``1(System.Int32,``0[]@)">
+            <summary>
+            Reads an array of the specified type and item count.
+            </summary>
+            <typeparam name="T">The type stored in the array.</typeparam>
+            <param name="length">The length of the array.</param>
+            <param name="value">The array that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDictionary``2">
+            <summary>
+            Reads a dictionary of the specified key and value types.
+            </summary>
+            <typeparam name="TKey">The key type of the dictionary.</typeparam>
+            <typeparam name="TValue">The value type of the dictionary.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadDictionary``2(System.Collections.Generic.Dictionary{``0,``1}@)">
+            <summary>
+            Reads a dictionary of the specified key and value types.
+            </summary>
+            <typeparam name="TKey">The key type of the dictionary.</typeparam>
+            <typeparam name="TValue">The value type of the dictionary.</typeparam>
+            <param name="value">The dictionary that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadEnum``1">
+            <summary>
+            Reads an enumeration member.
+            </summary>
+            <typeparam name="TEnum">The enumeration type to read.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadEnum``1(``0@)">
+            <summary>
+            Reads an enumeration member.
+            </summary>
+            <typeparam name="TEnum">The enumeration type to read.</typeparam>
+            <param name="value">The enumeration member that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStruct``1(System.Boolean)">
+            <summary>
+            Reads a struct of the specified type.
+            </summary>
+            <typeparam name="TStruct">The struct to read.</typeparam>
+            <param name="convertEndian"></param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadStruct``1(``0@,System.Boolean)">
+            <summary>
+            Reads a struct of the specified type.
+            </summary>
+            <typeparam name="TStruct">The struct to read.</typeparam>
+            <param name="convertEndian">Specifies if struct members marked with the [Endianness(Endian)] attribute should have their endianness converted as necessary.</param>
+            <param name="value">The struct that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadNullable``1">
+            <summary>
+            Reads a nullable value.
+            </summary>
+            <typeparam name="T">The type of the value to read.</typeparam>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadNullable``1(System.Nullable{``0}@)">
+            <summary>
+            Reads a nullable value.
+            </summary>
+            <typeparam name="T">The type of the value to read.</typeparam>
+            <param name="value">The nullable value that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBitField(System.Int32)">
+            <summary>
+            Reads a bit field from the stream.
+            </summary>
+            <param name="sizeInBytes">The size of the bit field in bytes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.ReadBitField(System.Int32,EasyIO.BitField@)">
+            <summary>
+            Reads a bit field from the stream.
+            </summary>
+            <param name="sizeInBytes">The size of the bit field in bytes.</param>
+            <param name="value">The bit field that was read.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyReader.Close">
+            <summary>
+            Closes the reader and the underlying stream.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EasyReader.System#IDisposable#Dispose">
+            <summary>
+            Releases all resources used by the current instance of the EasyIO.EasyReader class.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyReader.Endianness">
+            <summary>
+            Gets or sets the endianness in which data is read by the stream.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyReader.EndOfStream">
+            <summary>
+            Returns true if the stream has reached its end.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyReader.Remaining">
+            <summary>
+            The amount of bytes that are remaining to be read.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyReader.Length">
+            <summary>
+            The length of the stream in bytes.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyReader.BaseStream">
+            <summary>
+            The underlying stream for this instance.
+            </summary>
+        </member>
+        <member name="T:EasyIO.EasyWriter">
+            <summary>
+            Provides comprehensive binary writing functionality including support for writing arrays and enumeration members.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EasyWriter.#ctor(System.IO.Stream)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyWriter class from the specified stream.
+            </summary>
+            <param name="stream">The stream to write to.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.#ctor(System.IO.Stream,EasyIO.Endian,System.Boolean)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyWriter class from the specified stream.
+            </summary>
+            <param name="stream">The stream to write to.</param>
+            <param name="endianness">The endianness in which to write data.</param>
+            <param name="leaveOpen">Specifies whether or not to leave the stream open after the writer is disposed.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.#ctor(System.String,System.IO.FileMode,EasyIO.Endian)">
+            <summary>
+            Creates a new instance of the EasyIO.EasyWriter class from the specified file path and mode.
+            </summary>
+            <param name="path">The path to the file to write.</param>
+            <param name="endianness">The endianness in which to write data.</param>
+            <param name="mode">Specifies how the operating system should open the file.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Byte)">
+            <summary>
+            Writes a byte to the stream.
+            </summary>
+            <param name="value">The byte to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.WriteBytes(System.Byte[])">
+            <summary>
+            Writes an series of bytes to the stream.
+            </summary>
+            <param name="value">The byte array to write.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.SByte)">
+            <summary>
+            Writes a signed byte to the stream.
+            </summary>
+            <param name="value">The signed byte to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.UInt16)">
+            <summary>
+            Writes a 16-bit unsigned integer to the stream.
+            </summary>
+            <param name="value">The 16-bit unsigned integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Int16)">
+            <summary>
+            Writes a 16-bit signed integer to the stream.
+            </summary>
+            <param name="value">The 16-bit signed integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.UInt32)">
+            <summary>
+            Writes a 32-bit unsigned integer to the stream.
+            </summary>
+            <param name="value">The 32-bit unsigned integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Int32)">
+            <summary>
+            Writes a 32-bit signed integer to the stream.
+            </summary>
+            <param name="value">The 32-bit signed integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.UInt64)">
+            <summary>
+            Writes a 64-bit unsigned integer to the stream.
+            </summary>
+            <param name="value">The 64-bit unsigned integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Int64)">
+            <summary>
+            Writes a 64-bit signed integer to the stream.
+            </summary>
+            <param name="value">The 64-bit signed integer to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Single)">
+            <summary>
+            Writes a single-precision floating-point number to the stream.
+            </summary>
+            <param name="value">The single-precision floating-point number to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Double)">
+            <summary>
+            Writes a double-precision floating-point number to the stream.
+            </summary>
+            <param name="value">The double-precision floating-point number to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.Decimal)">
+            <summary>
+            Writes a 128-bit decimal number to the stream.
+            </summary>
+            <param name="value">The 128-bit decimal number to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.String)">
+            <summary>
+            Writes a Unicode string to the stream.
+            </summary>
+            <param name="value">The Unicode string to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.String,System.Text.Encoding)">
+            <summary>
+            Writes a string of the specified encoding to the stream.
+            </summary>
+            <param name="value">The string to write to the stream.</param>
+            <param name="encoding">The encoding to write the string in.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.String[])">
+            <summary>
+            Writes a Unicode string array to the stream.
+            </summary>
+            <param name="value">The Unicode string array to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(System.String[],System.Text.Encoding)">
+            <summary>
+            Writes a string array of the specified encoding to the stream.
+            </summary>
+            <param name="value">The string array to write.</param>
+            <param name="encoding">The encoding to write the strings in.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.WriteArray``1(``0[],System.Boolean,System.Boolean)">
+            <summary>
+            Writes an array of values to the stream.
+            </summary>
+            <typeparam name="T">The type of value stored in the array.</typeparam>
+            <param name="array">The array to write.</param>
+            <param name="prefixLength">Indices to the writer if the array length should be prefixed to the data.</param>
+            <param name="use64bit">Indicates to the writer that the array length is 64-bit rather than 32-bit.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write``2(System.Collections.Generic.Dictionary{``0,``1})">
+            <summary>
+            Writes a dictionary of the specified key and value types to the stream.
+            </summary>
+            <typeparam name="TKey">The key type of the dictionary.</typeparam>
+            <typeparam name="TValue">The value type of the dictionary.</typeparam>
+            <param name="value">The dictionary to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write``1(``0,System.Boolean)">
+            <summary>
+            Writes a struct or enumeration member to the stream.
+            </summary>
+            <typeparam name="TStruct">The type of the struct or enum.</typeparam>
+            <param name="value">The object to write.</param>
+            <param name="convertEndian">Indicates to the writer if endianness attributes should be regarded.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write(EasyIO.BitField)">
+            <summary>
+            Write a bit field to the stream.
+            </summary>
+            <param name="value">The bit field to write.</param>
+            <returns></returns>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Write``1(System.Nullable{``0})">
+            <summary>
+            Writes a nullable value to the stream.
+            </summary>
+            <typeparam name="T">The type of the value to write.</typeparam>
+            <param name="value">The nullable value to write.</param>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Close">
+            <summary>
+            Closes the writer and the underlying stream.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EasyWriter.Dispose">
+            <summary>
+            Releases all resources used by the current instance of the EasyIO.EasyWriter class.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyWriter.BaseStream">
+            <summary>
+            The underlying stream for this instance.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyWriter.Endianness">
+            <summary>
+            Gets or sets the endianness in which data is written.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyWriter.Position">
+            <summary>
+            The current writing position of the stream.
+            </summary>
+        </member>
+        <member name="P:EasyIO.EasyWriter.Length">
+            <summary>
+            The current length of the stream.
+            </summary>
+        </member>
+        <member name="T:EasyIO.EasyStrings">
+            <summary>
+            Provides functions for updating string entries.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EasyStrings.PushStartFixed(System.String,System.String)">
+            <summary>
+            Pushes a string to the start of a list file and shifts the list contents to the right, deleting the last entry.
+            </summary>
+            <param name="path">The path to the file</param>
+            <param name="str">The string to push.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="M:EasyIO.EasyStrings.PushEndFixed(System.String,System.String)">
+            <summary>
+            Pushes a string to the end of a list file and shifts the list contents to the left, deleting the first entry.
+            </summary>
+            <param name="path">The path to the file.</param>
+            <param name="str">The string to push.</param>
+            <returns>True if successful; otherwise, false.</returns>
+        </member>
+        <member name="T:EasyIO.Endian">
+            <summary>
+            Indicates byte ordering of binary fields.
+            </summary>
+        </member>
+        <member name="F:EasyIO.Endian.Big">
+            <summary>
+            Big endian.
+            </summary>
+        </member>
+        <member name="F:EasyIO.Endian.Little">
+            <summary>
+            Little endian.
+            </summary>
+        </member>
+        <member name="T:EasyIO.EndiannessAttribute">
+            <summary>
+            Specifies the byte order in which a field should be written and read by EasyWriter/EasyReader.
+            </summary>
+        </member>
+        <member name="M:EasyIO.EndiannessAttribute.#ctor(EasyIO.Endian)">
+            <summary>
+            Initializes a new instance of the EasyIO.EndiannessAttribute class with the specified endianness.
+            </summary>
+            <param name="endianness">The endianness to represent the field data in.</param>
+        </member>
+        <member name="P:EasyIO.EndiannessAttribute.Endianness">
+            <summary>
+            The endianness to represent the field data in.
+            </summary>
+        </member>
+        <member name="M:EasyIO.Utils.ConvertEndian(System.Byte[],EasyIO.Endian)">
+            <summary>
+            Converts the endianness of a series of bytes according to the endianness of the data. This process works both for system-side and data-side conversions.
+            </summary>
+            <param name="data">The data to convert.</param>
+            <param name="dataEndianness">The endianness to convert to or from.</param>
+        </member>
+    </members>
+</doc>
