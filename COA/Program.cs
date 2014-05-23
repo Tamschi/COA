@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,7 +11,12 @@ namespace COA
     {
         static void Main(string[] args)
         {
-            // AND SO IT BEGINS.
+            Ass.Load();
+            using (var reader = new StreamReader(Ass.R.test))
+            {
+                Console.WriteLine(reader.ReadToEnd());
+            }
+            Console.ReadLine();
         }
     }
 }
