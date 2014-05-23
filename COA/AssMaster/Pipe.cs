@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Dynamic;
 using System.IO;
 using System.Linq;
-using System.Security.Permissions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace COA
 {
@@ -18,6 +14,19 @@ namespace COA
         {
             _pipes = new Dictionary<string, Pipe>();
             _stream = null;
+        }
+
+        public void Dispose()
+        {
+            if (_stream != null)
+            {
+                _stream.Close();
+            }
+            foreach (var pair in _pipes)
+            {
+                pair.Value.Dispose();
+            }
+            _pipes.Clear();
         }
 
         public override bool TryGetMember(GetMemberBinder binder, out object result)
@@ -34,14 +43,14 @@ namespace COA
             return pipe._stream;
         }
 
-        public static Pipe FromFolder(string path)
+        public static Pipe FromFolder(string path, params string[] filterExclude)
         {
             var pipe = new Pipe();
             foreach (var folderPath in Directory.GetDirectories(path))
             {
-                pipe._pipes[Path.GetDirectoryName(folderPath).ToLower()] = FromFolder(folderPath);
+                pipe._pipes[Path.GetDirectoryName(folderPath).ToLower()] = FromFolder(folderPath, filterExclude);
             }
-            foreach (var filePath in Directory.GetFiles(path))
+            foreach (var filePath in Directory.GetFiles(path).Where(str => filterExclude.All(filter => !str.ToLower().EndsWith(filter))))
             {
                 pipe._pipes[Path.GetFileNameWithoutExtension(filePath).ToLower()] = FromFile(filePath);
             }

@@ -10,11 +10,18 @@ namespace COA
         private static bool _loaded = false;
         private static Res _res = null;
 
-        public static void Load()
+        public static void Load(params string[] exclude)
         {
             if (_loaded) return;
             _loaded = true;
-            _res = new Res();
+            _res = new Res(exclude);
+        }
+
+        public static void Unload()
+        {
+            if (!_loaded) return;
+            _loaded = false;
+            _res.Dispose();
         }
 
         public static dynamic R
@@ -26,14 +33,19 @@ namespace COA
         {
             private static bool _instantiated = false;
             private readonly Pipe _head;
-            public Res()
+            public Res(params string[] exclude)
             {
                 if (_instantiated)
                 {
                     throw new InvalidOperationException("Res is already instantiated.");
                 }
                 _instantiated = true;
-                _head = Pipe.FromFolder(HeadPath);
+                _head = Pipe.FromFolder(HeadPath, exclude);
+            }
+
+            public void Dispose()
+            {
+                _head.Dispose();
             }
 
             public override bool TryGetMember(GetMemberBinder binder, out dynamic result)
