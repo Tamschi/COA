@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using COA.Core;
 using DeveloperCommands;
 
 namespace COA
@@ -12,6 +13,7 @@ namespace COA
         {
             Ass.Load(".man");
             MH.Load();
+            EntityFactory.Load();
             Devcom.Load(true, Assembly.GetExecutingAssembly());
         }
 

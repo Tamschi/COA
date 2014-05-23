@@ -50,6 +50,9 @@
     <Compile Include="AssMaster\Ass.cs" />
     <Compile Include="AssMaster\Pipe.cs" />
     <Compile Include="Convars.cs" />
+    <Compile Include="Core\Entity.cs" />
+    <Compile Include="Core\EntityFactory.cs" />
+    <Compile Include="Core\EntityNameAttribute.cs" />
     <Compile Include="Engine.cs" />
     <Compile Include="MH.cs" />
     <Compile Include="Program.cs" />
@@ -59,7 +62,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Graphics\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\GitHub\Manhood\Manhood\Manhood.csproj">
       <Project>{cf061b7d-5a25-480a-818a-8bad2bec9bec}</Project>
