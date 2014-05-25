@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using COA.Core;
+using COA.Core.Entities;
 using DeveloperCommands;
 
 namespace COA
@@ -14,7 +14,9 @@ namespace COA
             Ass.Load(".man");
             MH.Load();
             EntityFactory.Load();
-            Devcom.Load(true, Assembly.GetExecutingAssembly());
+            Devcom.Load(true, Assembly.GetEntryAssembly());
+            ContextFilter.DefaultAdminFilter.ContextTypes = new[] {typeof(Context)};
+            ContextFilter.DefaultAdminFilter.FilterPolicy = ContextFilterPolicy.IncludeDerived;
         }
 
         /// <summary>

@@ -4,8 +4,9 @@ using System.Linq;
 using System.Reflection;
 using DeveloperCommands;
 
-namespace COA.Core
+namespace COA.Core.Entities
 {
+    [Category("ent")]
     public static class EntityFactory
     {
         private static readonly Dictionary<string, Type> entityTypes = new Dictionary<string, Type>();
@@ -33,13 +34,21 @@ namespace COA.Core
             return !keyValuePairs.Any() ? null : keyValuePairs.First().Key;
         }
 
-        public static Entity CreateEntity(string name)
+        public static Entity CreateEntity(string name, string tag = "")
         {
             name = name.ToLower();
             Type entType;
-            if (entityTypes.TryGetValue(name, out entType)) return (Entity)Activator.CreateInstance(entType);
+            if (entityTypes.TryGetValue(name, out entType)) return (Entity)Activator.CreateInstance(entType, tag);
             Devcom.Print("Attempted to create non-existent entity type '" + name + "'");
             return null;
+        }
+
+        [Command("create", "Create and spawn a new entity.")]
+        public static void CmdCreate(Context context, string name, string tag = "")
+        {
+            var ent = CreateEntity(name, tag);
+            if (ent == null) return;
+            World.Add(ent);
         }
     }
 }

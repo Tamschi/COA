@@ -49,11 +49,16 @@
   <ItemGroup>
     <Compile Include="AssMaster\Ass.cs" />
     <Compile Include="AssMaster\Pipe.cs" />
+    <Compile Include="Commands.cs" />
     <Compile Include="Convars.cs" />
-    <Compile Include="Core\Entity.cs" />
-    <Compile Include="Core\EntityFactory.cs" />
-    <Compile Include="Core\EntityNameAttribute.cs" />
+    <Compile Include="Core\Entities\Entity.cs" />
+    <Compile Include="Core\Entities\EntityCameraStatic.cs" />
+    <Compile Include="Core\Entities\EntityFactory.cs" />
+    <Compile Include="Core\Entities\EntityNameAttribute.cs" />
+    <Compile Include="Core\Entities\ICamera.cs" />
+    <Compile Include="Core\World.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Graphics\Shader.cs" />
     <Compile Include="MH.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -63,7 +68,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Graphics\" />
+    <Folder Include="Audio\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\GitHub\Manhood\Manhood\Manhood.csproj">

@@ -1,4 +1,6 @@
-﻿using DeveloperCommands;
+﻿using System;
+using System.Threading.Tasks;
+using DeveloperCommands;
 
 namespace COA
 {
@@ -7,12 +9,26 @@ namespace COA
         static void Main(string[] args)
         {
             Engine.Load();
-            using (var window = new RenderWindow())
+            Start();
+            while (true)
             {
-                window.Run();
+                Console.Write(Context.Default.Prompt);
+                Devcom.SendCommand(Console.ReadLine());
             }
-            Devcom.SaveConfig();
-            Engine.Unload();
+        }
+
+        static async void Start()
+        {
+            await Task.Run(() =>
+            {
+                using (var window = new RenderWindow())
+                {
+                    window.Run();
+                }
+                Devcom.SaveConfig();
+                Engine.Unload();
+                Environment.Exit(0);
+            });
         }
     }
 }

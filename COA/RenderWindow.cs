@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using COA.Core;
 using OpenTK;
-using OpenTK.Graphics;
 using OpenTK.Graphics.OpenGL;
+using OpenTK.Input;
 
 namespace COA
 {
@@ -32,6 +29,19 @@ namespace COA
             GL.ClearColor(0, 0, 1, 1);
         }
 
+        protected override void OnKeyDown(KeyboardKeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Environment.Exit(0);
+            }
+        }
+
+        protected override void OnKeyUp(KeyboardKeyEventArgs e)
+        {
+            
+        }
+
         protected override void OnRenderFrame(FrameEventArgs e)
         {
             GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -41,7 +51,7 @@ namespace COA
 
         protected override void OnUpdateFrame(FrameEventArgs e)
         {
-            base.OnUpdateFrame(e);
+            World.Update();
         }
     }
 }
