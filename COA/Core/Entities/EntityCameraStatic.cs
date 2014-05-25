@@ -1,4 +1,5 @@
-﻿using OpenTK;
+﻿using System;
+using OpenTK;
 
 namespace COA.Core.Entities
 {
@@ -9,7 +10,7 @@ namespace COA.Core.Entities
         public const float ZFar = 1000.0f;
 
         private Matrix4 _matView, _matProj, _matViewProj;
-        private float _fov;
+        private float _fov = (float)Math.PI / 2;
 
         public EntityCameraStatic()
         {
