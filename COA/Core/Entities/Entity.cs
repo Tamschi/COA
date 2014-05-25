@@ -79,6 +79,11 @@ namespace COA.Core.Entities
             OnDeath();
         }
 
+        public bool Spawn()
+        {
+            return World.Add(this);
+        }
+
         protected virtual void OnPositionChanging(Vector3 posOld, ref Vector3 posNew)
         {
         }
