@@ -36,7 +36,7 @@ namespace COA.Graphics
             {
                 _vboNormals = new VBO<Vector3>(normals, Shader.NormalAttribute, VertexAttribFormat.Vector3);
             }
-
+            
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
         }
