@@ -8,6 +8,7 @@ namespace COA.Graphics
         where T : struct
     {
         private readonly int _handle;
+        private readonly int _count;
         private readonly int _index;
         private readonly VertexAttribFormat _format;
 
@@ -16,18 +17,25 @@ namespace COA.Graphics
             get { return _format; }
         }
 
-        public int Attribute
+        public int AttributeIndex
         {
             get { return _index; }
         }
 
-        public VBO(T[] buffer, int attribIndex, VertexAttribFormat format, BufferUsageHint usage = BufferUsageHint.StaticDraw)
+        public int Count
+        {
+            get { return _count; }
+        }
+
+        public VBO(T[] buffer, int attribIndex, VertexAttribFormat format,
+            BufferUsageHint usage = BufferUsageHint.StaticDraw)
         {
             _index = attribIndex;
             _format = format;
             _handle = GL.GenBuffer();
+            _count = buffer.Length;
             GL.BindBuffer(BufferTarget.ArrayBuffer, _handle);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Marshal.SizeOf(typeof(T)) * buffer.Length), buffer, usage);
+            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Marshal.SizeOf(typeof(T))*buffer.Length), buffer, usage);
             SetVertexAttrib();
         }
 

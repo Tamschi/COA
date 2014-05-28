@@ -11,9 +11,9 @@ namespace COA.Graphics
     {
         private readonly int _vaoHandle;
 
-        private readonly int _bVertices = -1;
-        private readonly int _bTexCoords = -1;
-        private readonly int _bNormals = -1;
+        private readonly VBO<Vector3> _vboPositions;
+        private readonly VBO<Vector2> _vboTexCoords;
+        private readonly VBO<Vector3> _vboNormals; 
 
         private readonly int _vCount;
 
@@ -27,25 +27,16 @@ namespace COA.Graphics
             _vaoHandle = GL.GenVertexArray();
             GL.BindVertexArray(_vaoHandle);
 
-            _bVertices = GL.GenBuffer();
-            GL.BindBuffer(BufferTarget.ArrayBuffer, _bVertices);
-            GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Vector3.SizeInBytes * vertices.Length), vertices, BufferUsageHint.StaticDraw);
-            GL.VertexAttribPointer(Shader.PositionAttribute, 3, VertexAttribPointerType.Float, false, 0, 0);
+            _vboPositions = new VBO<Vector3>(vertices, Shader.PositionAttribute, VertexAttribFormat.Vector3);
 
             if (texcoords != null)
             {
-                _bTexCoords = GL.GenBuffer();
-                GL.BindBuffer(BufferTarget.ArrayBuffer, _bTexCoords);
-                GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Vector2.SizeInBytes*texcoords.Length), texcoords, BufferUsageHint.StaticDraw);
-                GL.VertexAttribPointer(Shader.TexCoordAttribute, 2, VertexAttribPointerType.Float, false, 0, 0);
+                _vboTexCoords = new VBO<Vector2>(texcoords, Shader.TexCoordAttribute, VertexAttribFormat.Vector2);
             }
 
             if (normals != null)
             {
-                _bNormals = GL.GenBuffer();
-                GL.BindBuffer(BufferTarget.ArrayBuffer, _bNormals);
-                GL.BufferData(BufferTarget.ArrayBuffer, (IntPtr)(Vector3.SizeInBytes * normals.Length), normals, BufferUsageHint.StaticDraw);
-                GL.VertexAttribPointer(Shader.NormalAttribute, 3, VertexAttribPointerType.Float, false, 0, 0);
+                _vboNormals = new VBO<Vector3>(normals, Shader.NormalAttribute, VertexAttribFormat.Vector3);
             }
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
@@ -99,9 +90,9 @@ namespace COA.Graphics
         public void Dispose()
         {
             GL.DeleteVertexArray(_vaoHandle);
-            GL.DeleteBuffer(_bVertices);
-            if (_bTexCoords != -1) GL.DeleteBuffer(_bTexCoords);
-            if (_bNormals != -1) GL.DeleteBuffer(_bNormals);
+            _vboPositions.Dispose();
+            if (_vboTexCoords != null) _vboTexCoords.Dispose();
+            if (_vboNormals != null) _vboNormals.Dispose();
         }
     }
 }
