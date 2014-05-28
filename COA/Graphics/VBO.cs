@@ -49,9 +49,19 @@ namespace COA.Graphics
             GL.BindBuffer(BufferTarget.ArrayBuffer, _handle);
         }
 
+        public bool Disposed { get; private set; }
+
         public void Dispose()
         {
+            if (Disposed) return;
+            Disposed = true;
             GL.DeleteBuffer(_handle);
+            GC.SuppressFinalize(this);
+        }
+
+        ~VBO()
+        {
+            Dispose();
         }
     }
 }

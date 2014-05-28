@@ -13,9 +13,7 @@ namespace COA.Graphics
 
         private readonly VBO<Vector3> _vboPositions;
         private readonly VBO<Vector2> _vboTexCoords;
-        private readonly VBO<Vector3> _vboNormals; 
-
-        private readonly int _vCount;
+        private readonly VBO<Vector3> _vboNormals;
 
         private Mesh(Vector3[] vertices, Vector2[] texcoords, Vector3[] normals)
         {
@@ -41,8 +39,6 @@ namespace COA.Graphics
 
             GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
             GL.BindVertexArray(0);
-
-            _vCount = vertices.Length;
         }
 
         public static Mesh FromData(MeshData data)
@@ -82,17 +78,27 @@ namespace COA.Graphics
 
             GL.BindVertexArray(_vaoHandle);
 
-            GL.DrawArrays(PrimitiveType.Triangles, 0, _vCount);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, _vboPositions.Count);
 
             shader.DisableAttribs();
         }
 
+        public bool Disposed { get; private set; }
+
         public void Dispose()
         {
+            if (Disposed) return;
+            Disposed = true;
             GL.DeleteVertexArray(_vaoHandle);
             _vboPositions.Dispose();
             if (_vboTexCoords != null) _vboTexCoords.Dispose();
             if (_vboNormals != null) _vboNormals.Dispose();
+            GC.SuppressFinalize(this);
+        }
+
+        ~Mesh()
+        {
+            Dispose();
         }
     }
 }
