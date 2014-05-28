@@ -47,25 +47,39 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssMaster\Ass.cs" />
-    <Compile Include="AssMaster\Pipe.cs" />
     <Compile Include="Commands.cs" />
     <Compile Include="Convars.cs" />
+    <Compile Include="Core\Entities\DrawableEntity.cs" />
     <Compile Include="Core\Entities\Entity.cs" />
-    <Compile Include="Core\Entities\EntityCameraStatic.cs" />
+    <Compile Include="Core\Entities\CameraStatic.cs" />
     <Compile Include="Core\Entities\EntityFactory.cs" />
     <Compile Include="Core\Entities\EntityNameAttribute.cs" />
     <Compile Include="Core\Entities\ICamera.cs" />
     <Compile Include="Core\World.cs" />
     <Compile Include="Engine.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Graphics\Framebuffer.cs" />
+    <Compile Include="Graphics\Material.cs" />
+    <Compile Include="Graphics\Mesh.cs" />
+    <Compile Include="Graphics\MeshData.cs" />
+    <Compile Include="Graphics\Renderbuffer.cs" />
+    <Compile Include="Graphics\RenderTarget.cs" />
     <Compile Include="Graphics\Shader.cs" />
+    <Compile Include="Graphics\ShaderProvider.cs" />
+    <Compile Include="Graphics\Texture.cs" />
+    <Compile Include="Graphics\TextureCache.cs" />
+    <Compile Include="MathHelper.cs" />
     <Compile Include="MH.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderWindow.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Build\res\manhood\base.man" />
+    <None Include="Build\res\shaders\frag.glsl" />
+    <None Include="Build\res\shaders\vert.glsl" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Audio\" />
@@ -79,6 +93,9 @@
       <Project>{47601232-d1d9-4ddc-8277-f5cb72461d16}</Project>
       <Name>DeveloperCommands</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Build\res\test.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

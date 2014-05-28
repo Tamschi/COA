@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using COA.Core.Entities;
+using COA.Graphics;
 using DeveloperCommands;
 
 namespace COA
@@ -11,7 +12,6 @@ namespace COA
         /// </summary>
         public static void Load()
         {
-            Ass.Load(".man");
             MH.Load();
             EntityFactory.Load();
             Devcom.Load(true, Assembly.GetEntryAssembly());
@@ -24,7 +24,7 @@ namespace COA
         /// </summary>
         public static void Unload()
         {
-            Ass.Unload();
+            TextureCache.Clear();
         }
     }
 }

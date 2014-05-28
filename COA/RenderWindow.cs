@@ -27,6 +27,12 @@ namespace COA
         protected override void OnLoad(EventArgs e)
         {
             GL.ClearColor(0, 0, 1, 1);
+            GL.Viewport(0, 0, Width, Height);
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
+            GL.Viewport(0, 0, Width, Height);
         }
 
         protected override void OnKeyDown(KeyboardKeyEventArgs e)

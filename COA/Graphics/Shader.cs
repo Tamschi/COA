@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Drawing.Drawing2D;
 using System.IO;
 using DeveloperCommands;
+using OpenTK;
 using OpenTK.Graphics.OpenGL;
 
 namespace COA.Graphics
@@ -11,26 +13,23 @@ namespace COA.Graphics
         protected readonly int VertexShaderHandle;
         protected readonly int FragmentShaderHandle;
 
-        int attr_vcol, attr_vpos, attr_texcoords, uniform_mview;
+        public const int PositionAttribute = 0;
+        public const int TexCoordAttribute = 1;
+        public const int NormalAttribute = 2;
 
-        public int ColorAttribute
+        private readonly int _unifMatModel;
+        private readonly int _unifMatViewProj;
+        private readonly int _unifDiffuseTexture;
+        private readonly int _unifTint;
+
+        public void SetMatModel(Matrix4 matrix)
         {
-            get { return attr_vcol; }
+            GL.UniformMatrix4(_unifMatModel, false, ref matrix);
         }
 
-        public int PositionAttribute
+        public void SetMatViewProj(Matrix4 matrix)
         {
-            get { return attr_vpos; }
-        }
-
-        public int TexCoordAttribute
-        {
-            get { return attr_texcoords; }
-        }
-
-        public int MatrixUniform
-        {
-            get { return uniform_mview; }
+            GL.UniformMatrix4(_unifMatViewProj, false, ref matrix);
         }
 
         public Shader(string vertexShaderPath, string fragmentShaderPath)
@@ -40,23 +39,20 @@ namespace COA.Graphics
             LoadShader(vertexShaderPath, ShaderType.VertexShader, ProgramHandle, out VertexShaderHandle);
             LoadShader(fragmentShaderPath, ShaderType.FragmentShader, ProgramHandle, out FragmentShaderHandle);
             GL.LinkProgram(ProgramHandle);
-            Console.WriteLine(GL.GetProgramInfoLog(ProgramHandle));
+            Devcom.Print(GL.GetProgramInfoLog(ProgramHandle));
 
-            attr_vpos = GL.GetAttribLocation(ProgramHandle, "vPosition");
-            attr_vcol = GL.GetAttribLocation(ProgramHandle, "vColor");
-            uniform_mview = GL.GetUniformLocation(ProgramHandle, "modelview");
+            _unifMatModel = GL.GetUniformLocation(ProgramHandle, "mModel");
+            _unifMatViewProj = GL.GetUniformLocation(ProgramHandle, "mViewProjection");
+            _unifDiffuseTexture = GL.GetUniformLocation(ProgramHandle, "DiffuseMap");
+            _unifTint = GL.GetUniformLocation(ProgramHandle, "Tint");
+
+            GL.ProgramUniform1(ProgramHandle, _unifDiffuseTexture, (int)Material.DiffuseMapUnit);
 
             // Make sure nothing is broken
-            if ((attr_vcol | attr_vpos | uniform_mview) < 0)
+            if ((_unifMatModel | _unifMatViewProj | _unifDiffuseTexture | _unifTint) < 0)
             {
-                Console.WriteLine("Error binding shader variables");
+                Devcom.Print("Error binding shader variables");
             }
-
-            // Tell the shader how to read the data in the vPosition attribute.
-            GL.VertexAttribPointer(attr_vpos, 3, VertexAttribPointerType.Float, false, 0, 0);
-
-            // Tell the shader how to read the data in the vColor attribute.
-            GL.VertexAttribPointer(attr_vcol, 3, VertexAttribPointerType.Float, false, 0, 0);
         }
 
         public void Use()
@@ -66,14 +62,14 @@ namespace COA.Graphics
 
         public void EnableAttribs()
         {
-            GL.EnableVertexAttribArray(attr_vpos);
-            GL.EnableVertexAttribArray(attr_vcol);
+            GL.EnableVertexAttribArray(PositionAttribute);
+            GL.EnableVertexAttribArray(TexCoordAttribute);
         }
 
         public void DisableAttribs()
         {
-            GL.DisableVertexAttribArray(attr_vpos);
-            GL.DisableVertexAttribArray(attr_vcol);
+            GL.DisableVertexAttribArray(PositionAttribute);
+            GL.DisableVertexAttribArray(TexCoordAttribute);
         }
 
         private static void LoadShader(string filename, ShaderType type, int program, out int address)

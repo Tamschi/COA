@@ -4,7 +4,7 @@ using OpenTK;
 namespace COA.Core.Entities
 {
     [EntityName("camera_static")]
-    public class EntityCameraStatic : Entity, ICamera
+    public class CameraStatic : Entity, ICamera
     {
         public const float ZNear = 0.01f;
         public const float ZFar = 1000.0f;
@@ -12,12 +12,12 @@ namespace COA.Core.Entities
         private Matrix4 _matView, _matProj, _matViewProj;
         private float _fov = (float)Math.PI / 2;
 
-        public EntityCameraStatic()
+        public CameraStatic()
         {
             CreateMatrices();
         }
 
-        public EntityCameraStatic(string tag) : base(tag)
+        public CameraStatic(string tag) : base(tag)
         {
             CreateMatrices();
         }
@@ -31,7 +31,7 @@ namespace COA.Core.Entities
 
         private void CreateProjection()
         {
-            _matProj = Matrix4.CreatePerspectiveFieldOfView(FOV,
+            _matProj = Matrix4.CreatePerspectiveFieldOfView(_fov,
                 (float)Convars.ResolutionWidth / Convars.ResolutionHeight, ZNear, ZFar);
         }
 
@@ -57,8 +57,8 @@ namespace COA.Core.Entities
             get { return _fov; }
             set
             {
-                CreateProjection();
                 _fov = value;
+                CreateProjection();
             } 
         }
 
